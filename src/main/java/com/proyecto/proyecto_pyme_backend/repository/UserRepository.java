@@ -4,6 +4,7 @@ import com.proyecto.proyecto_pyme_backend.dto.PymeUsuDto;
 import com.proyecto.proyecto_pyme_backend.mapper.PymeUsuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -30,11 +31,17 @@ public class UserRepository {
                 INNER JOIN tbl_pyme tp
                     ON tp.id_pyme = tup.id_pyme
                 WHERE usu.nom_usuario = :username ;
-                
+               
                 """;
         MapSqlParameterSource sqlParams = new MapSqlParameterSource();
         sqlParams.addValue("username", username);
 
-        return namedParameterJdbcTemplate.queryForObject(sql, sqlParams, new PymeUsuMapper());
+        try {
+            return namedParameterJdbcTemplate.queryForObject(sql, sqlParams, new PymeUsuMapper());
+
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+
     }
 }
