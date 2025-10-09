@@ -12,6 +12,7 @@ import com.proyecto.proyecto_pyme_backend.service.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,8 +31,16 @@ public class WebController {
     }
 
     @GetMapping("/obtener-regiones")
+    @PreAuthorize("isAuthenticated()")
     public List<RegionDto> obtenerRegiones()
     {
         return webService.listarRegiones();
+    }
+
+    @GetMapping("/obtener-data-pyme/{id_pyme}")
+    @PreAuthorize("isAuthenticated()")
+    public Integer obtenerDataPyme(@PathVariable Integer id_pyme)
+    {
+        return id_pyme;
     }
 }
