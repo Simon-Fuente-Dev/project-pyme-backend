@@ -1,4 +1,4 @@
-package com.proyecto.proyecto_pyme_backend.dto;
+package com.proyecto.proyecto_pyme_backend.dto.Api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

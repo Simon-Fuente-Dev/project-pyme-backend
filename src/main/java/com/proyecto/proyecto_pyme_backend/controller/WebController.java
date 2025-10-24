@@ -1,16 +1,13 @@
 package com.proyecto.proyecto_pyme_backend.controller;
 
 
-import com.proyecto.proyecto_pyme_backend.Utils.Bcrypt;
-import com.proyecto.proyecto_pyme_backend.dto.ApiResponse;
+import com.proyecto.proyecto_pyme_backend.dto.Api.ApiResponse;
 import com.proyecto.proyecto_pyme_backend.dto.AuthResponseDto;
-import com.proyecto.proyecto_pyme_backend.dto.PymeUsuDto;
-import com.proyecto.proyecto_pyme_backend.dto.RegionDto;
-import com.proyecto.proyecto_pyme_backend.repository.UserRepository;
+import com.proyecto.proyecto_pyme_backend.dto.Item.ItemDto;
+import com.proyecto.proyecto_pyme_backend.dto.Region.RegionDto;
 import com.proyecto.proyecto_pyme_backend.request.UsuAuthRequest;
 import com.proyecto.proyecto_pyme_backend.service.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -43,4 +40,8 @@ public class WebController {
     {
         return id_pyme;
     }
+
+    @GetMapping("/obtener-tipo-item")
+    @PreAuthorize("isAuthenticated()")
+    public List<ItemDto> obtenerItem() {return webService.listarTipoItem();}
 }

@@ -1,4 +1,4 @@
-package com.proyecto.proyecto_pyme_backend.repository;
+package com.proyecto.proyecto_pyme_backend.repository.Usuario;
 
 import com.proyecto.proyecto_pyme_backend.dto.PymeUsuDto;
 import com.proyecto.proyecto_pyme_backend.mapper.PymeUsuMapper;

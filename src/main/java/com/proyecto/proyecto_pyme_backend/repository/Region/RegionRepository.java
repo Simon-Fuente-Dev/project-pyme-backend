@@ -1,12 +1,11 @@
-package com.proyecto.proyecto_pyme_backend.repository;
+package com.proyecto.proyecto_pyme_backend.repository.Region;
 
-import com.proyecto.proyecto_pyme_backend.dto.RegionDto;
+import com.proyecto.proyecto_pyme_backend.dto.Region.RegionDto;
 import com.proyecto.proyecto_pyme_backend.mapper.RegionRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.plaf.synth.Region;
 import java.util.List;
 
 @Repository

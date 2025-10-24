@@ -1,13 +1,15 @@
 package com.proyecto.proyecto_pyme_backend.service;
+import com.proyecto.proyecto_pyme_backend.dto.Item.ItemDto;
+import com.proyecto.proyecto_pyme_backend.repository.Item.ItemRepository;
 import com.proyecto.proyecto_pyme_backend.security.JwtUtil;
 import com.proyecto.proyecto_pyme_backend.Utils.Bcrypt;
-import com.proyecto.proyecto_pyme_backend.dto.ApiResponse;
+import com.proyecto.proyecto_pyme_backend.dto.Api.ApiResponse;
 import com.proyecto.proyecto_pyme_backend.dto.PymeUsuDto;
-import com.proyecto.proyecto_pyme_backend.dto.RegionDto;
+import com.proyecto.proyecto_pyme_backend.dto.Region.RegionDto;
 import com.proyecto.proyecto_pyme_backend.dto.AuthResponseDto;
 
-import com.proyecto.proyecto_pyme_backend.repository.RegionRepository;
-import com.proyecto.proyecto_pyme_backend.repository.UserRepository;
+import com.proyecto.proyecto_pyme_backend.repository.Region.RegionRepository;
+import com.proyecto.proyecto_pyme_backend.repository.Usuario.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ public class WebService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -60,6 +65,10 @@ public class WebService {
         return ResponseEntity.ok(
                 new ApiResponse<>(true, "Login exitoso", authResponse)
         );
+    }
+
+    public List<ItemDto> listarTipoItem() {
+        return itemRepository.listarTipoItem();
     }
 
 

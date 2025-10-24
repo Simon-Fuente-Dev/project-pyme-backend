@@ -1,9 +1,8 @@
 package com.proyecto.proyecto_pyme_backend.mapper;
 
-import com.proyecto.proyecto_pyme_backend.dto.RegionDto;
+import com.proyecto.proyecto_pyme_backend.dto.Region.RegionDto;
 import org.springframework.jdbc.core.RowMapper;
 
-import javax.swing.plaf.synth.Region;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
