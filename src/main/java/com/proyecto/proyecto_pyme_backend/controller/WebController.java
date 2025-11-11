@@ -3,8 +3,9 @@ package com.proyecto.proyecto_pyme_backend.controller;
 
 import com.proyecto.proyecto_pyme_backend.dto.Api.ApiResponse;
 import com.proyecto.proyecto_pyme_backend.dto.AuthResponseDto;
-import com.proyecto.proyecto_pyme_backend.dto.Item.ItemDto;
-import com.proyecto.proyecto_pyme_backend.dto.Region.RegionDto;
+import com.proyecto.proyecto_pyme_backend.dto.ComunaDto;
+import com.proyecto.proyecto_pyme_backend.dto.ItemDto;
+import com.proyecto.proyecto_pyme_backend.dto.RegionDto;
 import com.proyecto.proyecto_pyme_backend.request.UsuAuthRequest;
 import com.proyecto.proyecto_pyme_backend.service.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +25,16 @@ public class WebController {
     @PostMapping("auth-usuario")
     public ResponseEntity<ApiResponse<AuthResponseDto>> authUsuario(@RequestBody UsuAuthRequest usuAuthRequest) {
         return webService.validarUsuario(usuAuthRequest.getUsername(), usuAuthRequest.getPassword());
-
     }
 
     @GetMapping("/obtener-regiones")
-    @PreAuthorize("isAuthenticated()")
     public List<RegionDto> obtenerRegiones()
     {
         return webService.listarRegiones();
     }
+
+    @GetMapping("/obtener-comunas/{id_region}")
+    public List<ComunaDto> obtenerComunas(@PathVariable Integer id_region) {return webService.listarComunas(id_region);}
 
     @GetMapping("/obtener-data-pyme/{id_pyme}")
     @PreAuthorize("isAuthenticated()")

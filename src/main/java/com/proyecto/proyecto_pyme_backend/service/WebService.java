@@ -1,15 +1,17 @@
 package com.proyecto.proyecto_pyme_backend.service;
-import com.proyecto.proyecto_pyme_backend.dto.Item.ItemDto;
-import com.proyecto.proyecto_pyme_backend.repository.Item.ItemRepository;
+import com.proyecto.proyecto_pyme_backend.dto.ComunaDto;
+import com.proyecto.proyecto_pyme_backend.dto.ItemDto;
+import com.proyecto.proyecto_pyme_backend.repository.ComunaRepository;
+import com.proyecto.proyecto_pyme_backend.repository.ItemRepository;
 import com.proyecto.proyecto_pyme_backend.security.JwtUtil;
 import com.proyecto.proyecto_pyme_backend.Utils.Bcrypt;
 import com.proyecto.proyecto_pyme_backend.dto.Api.ApiResponse;
 import com.proyecto.proyecto_pyme_backend.dto.PymeUsuDto;
-import com.proyecto.proyecto_pyme_backend.dto.Region.RegionDto;
+import com.proyecto.proyecto_pyme_backend.dto.RegionDto;
 import com.proyecto.proyecto_pyme_backend.dto.AuthResponseDto;
 
-import com.proyecto.proyecto_pyme_backend.repository.Region.RegionRepository;
-import com.proyecto.proyecto_pyme_backend.repository.Usuario.UserRepository;
+import com.proyecto.proyecto_pyme_backend.repository.RegionRepository;
+import com.proyecto.proyecto_pyme_backend.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,11 +33,15 @@ public class WebService {
 
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private ComunaRepository comunaRepository;
 
 
     public List<RegionDto> listarRegiones() {
         return regionRepository.obtenerRegiones();
     }
+
+    public List<ComunaDto> listarComunas(Integer id_region) { return comunaRepository.obtenerComunas(id_region);}
 
     public ResponseEntity<ApiResponse<AuthResponseDto>> validarUsuario(String username, String password) {
         PymeUsuDto usuario = userRepository.obtenerUsuPyme(username);

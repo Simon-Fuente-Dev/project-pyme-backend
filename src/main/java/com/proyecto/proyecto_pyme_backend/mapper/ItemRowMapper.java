@@ -1,6 +1,6 @@
-package com.proyecto.proyecto_pyme_backend.mapper.Item;
+package com.proyecto.proyecto_pyme_backend.mapper;
 
-import com.proyecto.proyecto_pyme_backend.dto.Item.ItemDto;
+import com.proyecto.proyecto_pyme_backend.dto.ItemDto;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

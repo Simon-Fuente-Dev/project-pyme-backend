@@ -1,4 +1,4 @@
-package com.proyecto.proyecto_pyme_backend.dto.Region;
+package com.proyecto.proyecto_pyme_backend.dto;
 
 import lombok.Data;
 

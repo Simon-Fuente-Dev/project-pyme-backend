@@ -1,6 +1,6 @@
 package com.proyecto.proyecto_pyme_backend.mapper;
 
-import com.proyecto.proyecto_pyme_backend.dto.Region.RegionDto;
+import com.proyecto.proyecto_pyme_backend.dto.RegionDto;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

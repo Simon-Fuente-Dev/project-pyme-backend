@@ -1,7 +1,7 @@
-package com.proyecto.proyecto_pyme_backend.repository.Item;
+package com.proyecto.proyecto_pyme_backend.repository;
 
-import com.proyecto.proyecto_pyme_backend.dto.Item.ItemDto;
-import com.proyecto.proyecto_pyme_backend.mapper.Item.ItemRowMapper;
+import com.proyecto.proyecto_pyme_backend.dto.ItemDto;
+import com.proyecto.proyecto_pyme_backend.mapper.ItemRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

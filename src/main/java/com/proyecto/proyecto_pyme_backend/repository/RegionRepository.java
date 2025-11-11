@@ -1,6 +1,6 @@
-package com.proyecto.proyecto_pyme_backend.repository.Region;
+package com.proyecto.proyecto_pyme_backend.repository;
 
-import com.proyecto.proyecto_pyme_backend.dto.Region.RegionDto;
+import com.proyecto.proyecto_pyme_backend.dto.RegionDto;
 import com.proyecto.proyecto_pyme_backend.mapper.RegionRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
