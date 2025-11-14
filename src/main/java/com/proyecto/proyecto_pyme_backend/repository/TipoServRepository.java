@@ -1,8 +1,7 @@
 package com.proyecto.proyecto_pyme_backend.repository;
-
 import com.proyecto.proyecto_pyme_backend.Utils.ConsultaGenerica;
-import com.proyecto.proyecto_pyme_backend.dto.ItemDto;
-import com.proyecto.proyecto_pyme_backend.mapper.ItemRowMapper;
+import com.proyecto.proyecto_pyme_backend.dto.TipoServDto;
+import com.proyecto.proyecto_pyme_backend.mapper.TipoServRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -11,17 +10,18 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ItemRepository {
+public class TipoServRepository {
 
     @Autowired
     private ConsultaGenerica consultaGenerica;
 
-    public List<ItemDto> listarTipoItem() {
+
+    public List<TipoServDto> listarTipoServ() {
         String sql = """
-                    SELECT id_tipo_item,\s
-                           descripcion\s
-                    FROM TBL_TIPO_ITEM;
+                select id_tipo_servicio,
+                       tipo_servicio
+                from tbl_tipo_servicio;
                 """;
-        return consultaGenerica.listaResultados(sql, Map.of(), new ItemRowMapper());
+        return consultaGenerica.listaResultados(sql, Map.of(), new TipoServRowMapper());
     }
 }

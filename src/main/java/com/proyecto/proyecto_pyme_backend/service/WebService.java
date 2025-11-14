@@ -1,17 +1,10 @@
 package com.proyecto.proyecto_pyme_backend.service;
-import com.proyecto.proyecto_pyme_backend.dto.ComunaDto;
-import com.proyecto.proyecto_pyme_backend.dto.ItemDto;
-import com.proyecto.proyecto_pyme_backend.repository.ComunaRepository;
-import com.proyecto.proyecto_pyme_backend.repository.ItemRepository;
+import com.proyecto.proyecto_pyme_backend.dto.*;
+import com.proyecto.proyecto_pyme_backend.repository.*;
+import com.proyecto.proyecto_pyme_backend.request.RegisterUsuRequest;
 import com.proyecto.proyecto_pyme_backend.security.JwtUtil;
 import com.proyecto.proyecto_pyme_backend.Utils.Bcrypt;
 import com.proyecto.proyecto_pyme_backend.dto.Api.ApiResponse;
-import com.proyecto.proyecto_pyme_backend.dto.PymeUsuDto;
-import com.proyecto.proyecto_pyme_backend.dto.RegionDto;
-import com.proyecto.proyecto_pyme_backend.dto.AuthResponseDto;
-
-import com.proyecto.proyecto_pyme_backend.repository.RegionRepository;
-import com.proyecto.proyecto_pyme_backend.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +25,20 @@ public class WebService {
     private ItemRepository itemRepository;
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private  TipoServRepository tipoServRepository;
+
+    @Autowired
+    private SubServicioRepository subServicioRepository;
+
     @Autowired
     private ComunaRepository comunaRepository;
+
+    @Autowired
+    private RegisterUsuRepository registerUsuRepository;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
 
 
     public List<RegionDto> listarRegiones() {
@@ -73,8 +77,21 @@ public class WebService {
         );
     }
 
+    public ResponseEntity<ApiResponse<Integer>> registrarUsuarioPyme(RegisterUsuRequest request) {
+        return registerUsuRepository.registrarUsuarioPyme(request);
+    }
+
     public List<ItemDto> listarTipoItem() {
         return itemRepository.listarTipoItem();
+    }
+
+    public List<TipoServDto>listarTipoServ() {
+
+        return tipoServRepository.listarTipoServ();
+    }
+
+    public List<SubServicioDto> listarSubServicio(Integer id_servicio) {
+        return subServicioRepository.listarSubServicio(id_servicio);
     }
 
 
