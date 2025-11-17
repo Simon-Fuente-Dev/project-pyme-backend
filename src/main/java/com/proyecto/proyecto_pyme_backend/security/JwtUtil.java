@@ -14,8 +14,11 @@ import java.util.Map;
 @Component // ✅ Hace que Spring pueda inyectarlo con @Autowired
 public class JwtUtil {
 
-    // 🔐 Clave secreta interna para firmar el token (nadie más debe tenerla)
-    private final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    // Usa una clave secreta fija. Debe tener mínimo 32 caracteres.
+    private static final String SECRET = "EstaEsUnaClaveSuperSecretaParaJWT1234567890";
+
+    private final Key secretKey = Keys.hmacShaKeyFor(SECRET.getBytes());
+
 
     // ⏳ Tiempo de expiración del token (5 horas)
     private final long expirationMs = 1000 * 60 * 60 * 5;
@@ -45,5 +48,8 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject(); // Esto fue lo que pusiste en .setSubject(...)
+    }
+    public Key getSecretKey() {
+        return secretKey;
     }
 }

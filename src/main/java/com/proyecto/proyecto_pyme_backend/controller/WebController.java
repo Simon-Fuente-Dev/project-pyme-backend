@@ -5,6 +5,7 @@ import com.proyecto.proyecto_pyme_backend.dto.*;
 import com.proyecto.proyecto_pyme_backend.dto.Api.ApiResponse;
 import com.proyecto.proyecto_pyme_backend.request.RegisterUsuRequest;
 import com.proyecto.proyecto_pyme_backend.request.UsuAuthRequest;
+import com.proyecto.proyecto_pyme_backend.security.AuthenticatedUserProvider;
 import com.proyecto.proyecto_pyme_backend.service.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ import java.util.List;
 public class WebController {
     @Autowired
     private WebService webService;
+    @Autowired
+    private AuthenticatedUserProvider userProvider;
 
     //Sin necesidad de logueo
     @PostMapping("auth-usuario")
@@ -51,12 +54,7 @@ public class WebController {
     }
 
 
-    // necesita loguearse
-    @GetMapping("/obtener-data-pyme/{id_pyme}")
-    @PreAuthorize("isAuthenticated()")
-    public Integer obtenerDataPyme(@PathVariable Integer id_pyme) {
-        return id_pyme;
-    }
+
 
     @GetMapping("/obtener-tipo-item")
     @PreAuthorize("isAuthenticated()")
@@ -64,5 +62,34 @@ public class WebController {
         return webService.listarTipoItem();
     }
 
+    @GetMapping("/get-serv-pyme")
+    @PreAuthorize("isAuthenticated()")
+    public Integer obtenerServPyme() {
+        Integer id_pyme = userProvider.getIdPyme();
+        System.out.println("id pyme: " + id_pyme);
+        return id_pyme;
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
