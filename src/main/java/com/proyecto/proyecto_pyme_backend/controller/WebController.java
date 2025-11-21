@@ -3,6 +3,8 @@ package com.proyecto.proyecto_pyme_backend.controller;
 
 import com.proyecto.proyecto_pyme_backend.dto.*;
 import com.proyecto.proyecto_pyme_backend.dto.Api.ApiResponse;
+import com.proyecto.proyecto_pyme_backend.mapper.TipoRedRowMapper;
+import com.proyecto.proyecto_pyme_backend.request.AgregarRedRequest;
 import com.proyecto.proyecto_pyme_backend.request.RegisterUsuRequest;
 import com.proyecto.proyecto_pyme_backend.request.UsuAuthRequest;
 import com.proyecto.proyecto_pyme_backend.security.AuthenticatedUserProvider;
@@ -64,11 +66,40 @@ public class WebController {
 
     @GetMapping("/get-serv-pyme")
     @PreAuthorize("isAuthenticated()")
-    public Integer obtenerServPyme() {
+    public List<TipoServDto> obtenerServPyme() {
         Integer id_pyme = userProvider.getIdPyme();
-        System.out.println("id pyme: " + id_pyme);
-        return id_pyme;
+        return webService.listarServPyme(id_pyme);
     }
+
+    @GetMapping("/get-sub-serv-pyme")
+    @PreAuthorize("isAuthenticated()")
+    public List<SubServicioDto> obtenerSubServPyme() {
+        Integer id_pyme = userProvider.getIdPyme();
+        return webService.listarSubServPyme(id_pyme);
+    }
+
+    @GetMapping("/get-tipo-red")
+    @PreAuthorize("isAuthenticated()")
+    public List<TipoRedDto> obtenerTipoRed() {
+        Integer id_pyme = userProvider.getIdPyme();
+        return webService.listarTipoRed(id_pyme);
+    }
+
+    @PostMapping("agregar-red-pyme")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<ApiResponse<Integer>> agregarRedPyme(@RequestBody AgregarRedRequest request) {
+        Integer id_pyme = userProvider.getIdPyme();
+        return webService.agregarRedPyme(request, id_pyme);
+    }
+
+    @GetMapping("get-redes-pyme")
+    @PreAuthorize("isAuthenticated()")
+    public List<RedPymeDto> obtenerRedesPyme() {
+        Integer id_pyme = userProvider.getIdPyme();
+        return webService.obtenerRedesPyme(id_pyme);
+    }
+
+
 
 
 }

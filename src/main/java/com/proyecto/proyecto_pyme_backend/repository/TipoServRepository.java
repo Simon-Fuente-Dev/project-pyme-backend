@@ -24,4 +24,20 @@ public class TipoServRepository {
                 """;
         return consultaGenerica.listaResultados(sql, Map.of(), new TipoServRowMapper());
     }
+
+    public List<TipoServDto> listarServPyme(Integer id_pyme) {
+        String sql = """
+                SELECT tts.tipo_servicio,
+                       ttsp.id_tipo_servicio
+                FROM tbl_tipo_servicio tts
+                INNER JOIN tbl_tipo_serv_pyme ttsp
+                    ON tts.id_tipo_servicio = ttsp.id_tipo_servicio
+                INNER JOIN tbl_pyme tp
+                    ON ttsp.id_pyme = tp.id_pyme
+                WHERE tp.id_pyme = :id_pyme;
+                """;
+        Map<String, Object> params = Map.of("id_pyme", id_pyme);
+
+        return consultaGenerica.listaResultados(sql, params, new TipoServRowMapper());
+    }
 }

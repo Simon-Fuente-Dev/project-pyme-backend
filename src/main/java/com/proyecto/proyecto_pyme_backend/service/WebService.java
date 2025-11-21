@@ -1,6 +1,7 @@
 package com.proyecto.proyecto_pyme_backend.service;
 import com.proyecto.proyecto_pyme_backend.dto.*;
 import com.proyecto.proyecto_pyme_backend.repository.*;
+import com.proyecto.proyecto_pyme_backend.request.AgregarRedRequest;
 import com.proyecto.proyecto_pyme_backend.request.RegisterUsuRequest;
 import com.proyecto.proyecto_pyme_backend.security.JwtUtil;
 import com.proyecto.proyecto_pyme_backend.Utils.Bcrypt;
@@ -14,6 +15,8 @@ import java.util.List;
 
 @Service
 public class WebService {
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     private RegionRepository regionRepository;
@@ -37,7 +40,8 @@ public class WebService {
     private RegisterUsuRepository registerUsuRepository;
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private RedRepository redRepository;
+
 
 
 
@@ -92,6 +96,26 @@ public class WebService {
 
     public List<SubServicioDto> listarSubServicio(Integer id_servicio) {
         return subServicioRepository.listarSubServicio(id_servicio);
+    }
+
+    public List<TipoServDto> listarServPyme(Integer id_pyme) {
+        return tipoServRepository.listarServPyme(id_pyme);
+    }
+
+    public List<SubServicioDto> listarSubServPyme(Integer id_pyme) {
+        return subServicioRepository.listarSubServPyme(id_pyme);
+    }
+
+    public List<TipoRedDto> listarTipoRed(Integer id_pyme) {
+        return redRepository.listarTipoRed(id_pyme);
+    }
+
+    public ResponseEntity<ApiResponse<Integer>> agregarRedPyme(AgregarRedRequest request, Integer id_pyme) {
+        return redRepository.agregarRedPyme(request, id_pyme);
+    }
+
+    public List<RedPymeDto> obtenerRedesPyme(Integer id_pyme) {
+        return redRepository.obtenerRedesPyme(id_pyme);
     }
 
 
