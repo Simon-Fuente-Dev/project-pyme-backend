@@ -76,7 +76,7 @@ public class ConsultaGenerica {
     }
 
     // 🔹 5. Ejecutar UPDATE / DELETE y devolver filas afectadas
-    public int actualizar(String sql, Map<String, Object> parametros) {
+    public int actualizarEliminar(String sql, Map<String, Object> parametros) {
         try {
             MapSqlParameterSource paramSource = new MapSqlParameterSource(parametros);
             return jdbcTemplate.update(sql, paramSource);

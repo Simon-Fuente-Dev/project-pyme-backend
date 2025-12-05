@@ -1,7 +1,7 @@
 package com.proyecto.proyecto_pyme_backend.service;
 import com.proyecto.proyecto_pyme_backend.dto.*;
 import com.proyecto.proyecto_pyme_backend.repository.*;
-import com.proyecto.proyecto_pyme_backend.request.AgregarRedRequest;
+import com.proyecto.proyecto_pyme_backend.request.AgregarEditarRedRequest;
 import com.proyecto.proyecto_pyme_backend.request.RegisterUsuRequest;
 import com.proyecto.proyecto_pyme_backend.security.JwtUtil;
 import com.proyecto.proyecto_pyme_backend.Utils.Bcrypt;
@@ -89,6 +89,7 @@ public class WebService {
         return itemRepository.listarTipoItem();
     }
 
+    //Servicios y sub servicios
     public List<TipoServDto>listarTipoServ() {
 
         return tipoServRepository.listarTipoServ();
@@ -106,12 +107,21 @@ public class WebService {
         return subServicioRepository.listarSubServPyme(id_pyme);
     }
 
+    ////////REDES SOCIALES
     public List<TipoRedDto> listarTipoRed(Integer id_pyme) {
         return redRepository.listarTipoRed(id_pyme);
     }
 
-    public ResponseEntity<ApiResponse<Integer>> agregarRedPyme(AgregarRedRequest request, Integer id_pyme) {
+    public ResponseEntity<ApiResponse<Integer>> agregarRedPyme(AgregarEditarRedRequest request, Integer id_pyme) {
         return redRepository.agregarRedPyme(request, id_pyme);
+    }
+
+    public ResponseEntity<ApiResponse<Integer>> modificarRedPyme(AgregarEditarRedRequest request, Integer id_pyme) {
+        return redRepository.modificarRedPyme(request, id_pyme);
+    }
+
+    public ResponseEntity<ApiResponse<Integer>> eliminarRedPyme(Integer id_red,Integer id_pyme) {
+        return redRepository.eliminarRedPyme(id_red, id_pyme);
     }
 
     public List<RedPymeDto> obtenerRedesPyme(Integer id_pyme) {

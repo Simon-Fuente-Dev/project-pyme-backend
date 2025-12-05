@@ -3,8 +3,7 @@ package com.proyecto.proyecto_pyme_backend.controller;
 
 import com.proyecto.proyecto_pyme_backend.dto.*;
 import com.proyecto.proyecto_pyme_backend.dto.Api.ApiResponse;
-import com.proyecto.proyecto_pyme_backend.mapper.TipoRedRowMapper;
-import com.proyecto.proyecto_pyme_backend.request.AgregarRedRequest;
+import com.proyecto.proyecto_pyme_backend.request.AgregarEditarRedRequest;
 import com.proyecto.proyecto_pyme_backend.request.RegisterUsuRequest;
 import com.proyecto.proyecto_pyme_backend.request.UsuAuthRequest;
 import com.proyecto.proyecto_pyme_backend.security.AuthenticatedUserProvider;
@@ -85,11 +84,32 @@ public class WebController {
         return webService.listarTipoRed(id_pyme);
     }
 
-    @PostMapping("agregar-red-pyme")
+//    @PostMapping("agregar-red-pyme")
+//    @PreAuthorize("isAuthenticated()")
+//    public ResponseEntity<ApiResponse<Integer>> agregarRedPyme(@RequestBody AgregarRedRequest request) {
+//        Integer id_pyme = userProvider.getIdPyme();
+//        System.out.println();
+//        return webService.agregarRedPyme(request, id_pyme);
+//    }
+
+    @PostMapping("agregar-editar-red-pyme")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<ApiResponse<Integer>> agregarRedPyme(@RequestBody AgregarRedRequest request) {
+    public ResponseEntity<ApiResponse<Integer>> agregarEditarRedPyme(@RequestBody AgregarEditarRedRequest request) {
         Integer id_pyme = userProvider.getIdPyme();
-        return webService.agregarRedPyme(request, id_pyme);
+        if(request.getIdRedPyme() == 0) {
+            return webService.agregarRedPyme(request, id_pyme);
+        }else {
+            return webService.modificarRedPyme(request, id_pyme);
+        }
+//        return webService.agregarRedPyme(request, id_pyme);
+    }
+
+    @GetMapping("eliminar-red-pyme/{id_red}")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<ApiResponse<Integer>> eliminarRedPyme(@PathVariable Integer id_red) {
+        Integer id_pyme = userProvider.getIdPyme();
+        return webService.eliminarRedPyme(id_red, id_pyme);
+
     }
 
     @GetMapping("get-redes-pyme")

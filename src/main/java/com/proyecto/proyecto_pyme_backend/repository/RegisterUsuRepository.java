@@ -148,7 +148,7 @@ public class RegisterUsuRepository {
                     "id_sub_servicio", idSubServicio
             );
 
-            consultaGenerica.actualizar(sqlSubServ, paramsSubServ);
+            consultaGenerica.insertarYObtenerId(sqlSubServ, paramsSubServ, "id_sub_serv_pyme");
         }
     }
 }
