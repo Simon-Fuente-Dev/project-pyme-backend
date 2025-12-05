@@ -64,10 +64,13 @@ public class RedRepository {
                 SELECT trp.id_tipo_red,
                        trp.id_red_pyme,
                        trp.url,
-                       trp.numero_telefono
+                       trp.numero_telefono,
+                       ttrs.nom_red_social
                 FROM tbl_red_pyme trp
                 INNER JOIN tbl_pyme tp
                     ON tp.id_pyme = trp.id_pyme
+                INNER JOIN tbl_tipo_red_social ttrs
+                    ON trp.id_tipo_red = ttrs.id_tipo_red
                 WHERE tp.id_pyme = :id_pyme;
                 """;
         Map<String, Object> parametros = Map.of("id_pyme", id_pyme);

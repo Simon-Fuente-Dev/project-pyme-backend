@@ -11,6 +11,7 @@ public class RedPymeRowMapper implements RowMapper<RedPymeDto> {
     public RedPymeDto mapRow(ResultSet rs, int rownum) throws SQLException {
         RedPymeDto dto = new RedPymeDto();
         dto.setId_tipo_red(rs.getInt("id_tipo_red"));
+        dto.setNom_red(rs.getString("nom_red_social"));
         dto.setId_red_pyme(rs.getInt("id_red_pyme"));
         dto.setUrl(rs.getString("url"));
         dto.setNumero_telefono(rs.getInt("numero_telefono"));
