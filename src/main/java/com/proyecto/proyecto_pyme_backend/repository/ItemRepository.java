@@ -3,6 +3,7 @@ package com.proyecto.proyecto_pyme_backend.repository;
 import com.proyecto.proyecto_pyme_backend.Utils.ConsultaGenerica;
 import com.proyecto.proyecto_pyme_backend.dto.ItemDto;
 import com.proyecto.proyecto_pyme_backend.mapper.ItemRowMapper;
+import com.proyecto.proyecto_pyme_backend.request.AddEditItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,5 +24,8 @@ public class ItemRepository {
                     FROM TBL_TIPO_ITEM;
                 """;
         return consultaGenerica.listaResultados(sql, Map.of(), new ItemRowMapper());
+    }
+    public Integer agregarItemPyme(Integer id_pyme, AddEditItemRequest request) {
+
     }
 }

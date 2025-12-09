@@ -129,11 +129,18 @@ public class WebController {
 
     @PostMapping("modificar-desc-pyme")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<ApiResponse<Integer>> modificarNomPyme(@RequestBody ModificarDescPymeRequest request) {
+    public ResponseEntity<ApiResponse<Integer>> modificarDescPyme(@RequestBody ModificarDescPymeRequest request) {
         Integer id_pyme = userProvider.getIdPyme();
-        return webService.modificarNomPyme(id_pyme, request.getDescripcion_pyme());
+        return webService.modificarDescPyme(id_pyme, request.getDescripcion_pyme());
     }
 
+
+    /// Producto y servicio
+    @PostMapping("add-edit-item")
+    @PreAuthorize("isAuthenticated()")
+    public void agregarEditar(@RequestBody AddEditItemRequest request) {
+        System.out.println(request);
+    }
 
 
 

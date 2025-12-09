@@ -1,6 +1,7 @@
 package com.proyecto.proyecto_pyme_backend.service;
 import com.proyecto.proyecto_pyme_backend.dto.*;
 import com.proyecto.proyecto_pyme_backend.repository.*;
+import com.proyecto.proyecto_pyme_backend.request.AddEditItemRequest;
 import com.proyecto.proyecto_pyme_backend.request.AgregarEditarRedRequest;
 import com.proyecto.proyecto_pyme_backend.request.RegisterUsuRequest;
 import com.proyecto.proyecto_pyme_backend.security.JwtUtil;
@@ -142,5 +143,10 @@ public class WebService {
 
     public ResponseEntity<ApiResponse<Integer>> modificarDescPyme(Integer id_pyme, String descripcion_pyme) {
         return pymeRepository.modificarDescPyme(id_pyme, descripcion_pyme);
+    }
+
+    /// Item
+    public Integer agregarItemPyme(Integer id_pyme, AddEditItemRequest request) {
+        return itemRepository.agregarItemPyme(Integer id_pyme, request);
     }
 }

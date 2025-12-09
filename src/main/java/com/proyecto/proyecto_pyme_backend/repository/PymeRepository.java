@@ -55,7 +55,6 @@ public class PymeRepository {
                 """;
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("descripcion_pyme", descripcion_pyme);
-
         parametros.put("id_pyme", id_pyme);
 
         Integer filaAfectada = consultaGenerica.actualizarEliminar(sql, parametros);
