@@ -3,9 +3,7 @@ package com.proyecto.proyecto_pyme_backend.controller;
 
 import com.proyecto.proyecto_pyme_backend.dto.*;
 import com.proyecto.proyecto_pyme_backend.dto.Api.ApiResponse;
-import com.proyecto.proyecto_pyme_backend.request.AgregarEditarRedRequest;
-import com.proyecto.proyecto_pyme_backend.request.RegisterUsuRequest;
-import com.proyecto.proyecto_pyme_backend.request.UsuAuthRequest;
+import com.proyecto.proyecto_pyme_backend.request.*;
 import com.proyecto.proyecto_pyme_backend.security.AuthenticatedUserProvider;
 import com.proyecto.proyecto_pyme_backend.service.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,20 +75,22 @@ public class WebController {
         return webService.listarSubServPyme(id_pyme);
     }
 
+
+    ///Redes de la pyme
+    @GetMapping("get-redes-pyme")
+    @PreAuthorize("isAuthenticated()")
+    public List<RedPymeDto> obtenerRedesPyme() {
+        Integer id_pyme = userProvider.getIdPyme();
+        return webService.obtenerRedesPyme(id_pyme);
+    }
+
+
     @GetMapping("/get-tipo-red")
     @PreAuthorize("isAuthenticated()")
     public List<TipoRedDto> obtenerTipoRed() {
         Integer id_pyme = userProvider.getIdPyme();
         return webService.listarTipoRed(id_pyme);
     }
-
-//    @PostMapping("agregar-red-pyme")
-//    @PreAuthorize("isAuthenticated()")
-//    public ResponseEntity<ApiResponse<Integer>> agregarRedPyme(@RequestBody AgregarRedRequest request) {
-//        Integer id_pyme = userProvider.getIdPyme();
-//        System.out.println();
-//        return webService.agregarRedPyme(request, id_pyme);
-//    }
 
     @PostMapping("agregar-editar-red-pyme")
     @PreAuthorize("isAuthenticated()")
@@ -101,7 +101,6 @@ public class WebController {
         }else {
             return webService.modificarRedPyme(request, id_pyme);
         }
-//        return webService.agregarRedPyme(request, id_pyme);
     }
 
     @GetMapping("eliminar-red-pyme/{id_red}")
@@ -112,12 +111,33 @@ public class WebController {
 
     }
 
-    @GetMapping("get-redes-pyme")
+    //Datos de la pyme
+
+    @GetMapping("get-data-pyme")
     @PreAuthorize("isAuthenticated()")
-    public List<RedPymeDto> obtenerRedesPyme() {
+    public PymeDto obtenerDataPyme() {
         Integer id_pyme = userProvider.getIdPyme();
-        return webService.obtenerRedesPyme(id_pyme);
+        return webService.obtenerDataPyme(id_pyme);
     }
+
+    @PostMapping("modificar-nombre-pyme")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<ApiResponse<Integer>> modificarNomPyme(@RequestBody ModificarNomPymeRequest request) {
+        Integer id_pyme = userProvider.getIdPyme();
+        return webService.modificarNomPyme(id_pyme, request.getNombre_pyme());
+    }
+
+    @PostMapping("modificar-desc-pyme")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<ApiResponse<Integer>> modificarNomPyme(@RequestBody ModificarDescPymeRequest request) {
+        Integer id_pyme = userProvider.getIdPyme();
+        return webService.modificarNomPyme(id_pyme, request.getDescripcion_pyme());
+    }
+
+
+
+
+
 
 
 

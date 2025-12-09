@@ -42,6 +42,9 @@ public class WebService {
     @Autowired
     private RedRepository redRepository;
 
+    @Autowired
+    private PymeRepository pymeRepository;
+
 
 
 
@@ -128,5 +131,16 @@ public class WebService {
         return redRepository.obtenerRedesPyme(id_pyme);
     }
 
+    ////////Datos de la pyme
+    public PymeDto obtenerDataPyme(Integer id_pyme) {
+        return pymeRepository.obtenerDataPyme(id_pyme);
+    }
 
+    public ResponseEntity<ApiResponse<Integer>> modificarNomPyme(Integer id_pyme, String nombre_pyme) {
+        return pymeRepository.modificarNomPyme(id_pyme, nombre_pyme);
+    }
+
+    public ResponseEntity<ApiResponse<Integer>> modificarDescPyme(Integer id_pyme, String descripcion_pyme) {
+        return pymeRepository.modificarDescPyme(id_pyme, descripcion_pyme);
+    }
 }
