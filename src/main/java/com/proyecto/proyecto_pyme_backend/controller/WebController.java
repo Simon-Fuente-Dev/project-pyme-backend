@@ -138,8 +138,28 @@ public class WebController {
     /// Producto y servicio
     @PostMapping("add-edit-item")
     @PreAuthorize("isAuthenticated()")
-    public void agregarEditar(@RequestBody AddEditItemRequest request) {
-        System.out.println(request);
+    public ResponseEntity<ApiResponse<Integer>> agregarEditar(@RequestBody AddEditItemRequest request) {
+
+        Integer id_pyme = userProvider.getIdPyme();
+        if(request.getId() == 0) {
+            Integer resp = webService.agregarItemPyme(id_pyme, request);
+            return ResponseEntity.ok(
+                    new ApiResponse<>(true, "Item agregado con exito!", resp)
+            );
+        }else {
+            Integer resp = webService.editarItemPyme(id_pyme, request);
+            return ResponseEntity.ok(
+                    new ApiResponse<>(true, "Item modificado con exito!", resp)
+            );
+        }
+
+    }
+
+    @GetMapping("get-item-pyme")
+    @PreAuthorize("isAuthenticated()")
+    public List<ItemPymeDto> obtenerItemPyme() {
+        Integer id_pyme = userProvider.getIdPyme();
+        return webService.obtenerItemPyme(id_pyme);
     }
 
 

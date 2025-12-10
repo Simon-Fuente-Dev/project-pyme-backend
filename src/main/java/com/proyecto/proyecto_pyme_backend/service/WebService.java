@@ -146,7 +146,18 @@ public class WebService {
     }
 
     /// Item
-    public Integer agregarItemPyme(Integer id_pyme, AddEditItemRequest request) {
-        return itemRepository.agregarItemPyme(Integer id_pyme, request);
+    public List<ItemPymeDto> obtenerItemPyme(Integer id_pyme) {
+        return itemRepository.obtenerItemPyme(id_pyme);
     }
+
+
+    public Integer agregarItemPyme(Integer id_pyme, AddEditItemRequest request) {
+        return itemRepository.agregarItemPyme(id_pyme, request);
+    }
+
+    public Integer editarItemPyme(Integer id_pyme, AddEditItemRequest request) {
+        return itemRepository.editarItemPyme(id_pyme, request);
+    }
+
+
 }
