@@ -48,7 +48,7 @@ public class WebController {
     }
 
     @PostMapping("/registar-pyme")
-    public ResponseEntity<ApiResponse<Integer>> registrarUsuarioPyme(@RequestBody RegisterUsuRequest request) {
+    public ResponseEntity<ApiResponse<Integer>> registrarUsuarioPyme(@RequestBody RegisterUsuPymeRequest request) {
         return webService.registrarUsuarioPyme(request);
     }
 
@@ -160,6 +160,14 @@ public class WebController {
     public List<ItemPymeDto> obtenerItemPyme() {
         Integer id_pyme = userProvider.getIdPyme();
         return webService.obtenerItemPyme(id_pyme);
+    }
+
+    @PostMapping("delete-item-pyme")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<ApiResponse<Integer>> eliminarItemPyme(@RequestBody DeleteItemRequest request) {
+        Integer id_pyme = userProvider.getIdPyme();
+        System.out.println(id_pyme);
+        return webService.eliminarItemPyme(id_pyme, request);
     }
 
 

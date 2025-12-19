@@ -3,7 +3,8 @@ import com.proyecto.proyecto_pyme_backend.dto.*;
 import com.proyecto.proyecto_pyme_backend.repository.*;
 import com.proyecto.proyecto_pyme_backend.request.AddEditItemRequest;
 import com.proyecto.proyecto_pyme_backend.request.AgregarEditarRedRequest;
-import com.proyecto.proyecto_pyme_backend.request.RegisterUsuRequest;
+import com.proyecto.proyecto_pyme_backend.request.DeleteItemRequest;
+import com.proyecto.proyecto_pyme_backend.request.RegisterUsuPymeRequest;
 import com.proyecto.proyecto_pyme_backend.security.JwtUtil;
 import com.proyecto.proyecto_pyme_backend.Utils.Bcrypt;
 import com.proyecto.proyecto_pyme_backend.dto.Api.ApiResponse;
@@ -23,7 +24,7 @@ public class WebService {
     private RegionRepository regionRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserWebRepository userWebRepository;
 
     @Autowired
     private ItemRepository itemRepository;
@@ -56,7 +57,7 @@ public class WebService {
     public List<ComunaDto> listarComunas(Integer id_region) { return comunaRepository.obtenerComunas(id_region);}
 
     public ResponseEntity<ApiResponse<AuthResponseDto>> validarUsuario(String username, String password) {
-        PymeUsuDto usuario = userRepository.obtenerUsuPyme(username);
+        PymeUsuDto usuario = userWebRepository.obtenerUsuPyme(username);
 
         if (usuario == null) {
             return ResponseEntity.ok(
@@ -85,7 +86,7 @@ public class WebService {
         );
     }
 
-    public ResponseEntity<ApiResponse<Integer>> registrarUsuarioPyme(RegisterUsuRequest request) {
+    public ResponseEntity<ApiResponse<Integer>> registrarUsuarioPyme(RegisterUsuPymeRequest request) {
         return registerUsuRepository.registrarUsuarioPyme(request);
     }
 
@@ -157,6 +158,10 @@ public class WebService {
 
     public Integer editarItemPyme(Integer id_pyme, AddEditItemRequest request) {
         return itemRepository.editarItemPyme(id_pyme, request);
+    }
+
+    public ResponseEntity<ApiResponse<Integer>> eliminarItemPyme(Integer id_pyme, DeleteItemRequest request) {
+        return itemRepository.eliminarItemPyme(id_pyme, request);
     }
 
 

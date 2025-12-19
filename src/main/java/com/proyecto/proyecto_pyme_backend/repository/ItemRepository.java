@@ -7,6 +7,7 @@ import com.proyecto.proyecto_pyme_backend.dto.ItemPymeDto;
 import com.proyecto.proyecto_pyme_backend.mapper.ItemPymeRowMapper;
 import com.proyecto.proyecto_pyme_backend.mapper.ItemRowMapper;
 import com.proyecto.proyecto_pyme_backend.request.AddEditItemRequest;
+import com.proyecto.proyecto_pyme_backend.request.DeleteItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -59,6 +60,7 @@ public class ItemRepository {
     }
 
     public Integer agregarItemPyme(Integer id_pyme, AddEditItemRequest request) {
+
         String sql = """
                     INSERT INTO tbl_item(nombre, descripcion, precio, duracion_min, duracion_max, 
                                          id_pyme, id_tipo_item, id_tipo_sub_servicio)
@@ -98,6 +100,28 @@ public class ItemRepository {
         Integer filaAfectada = consultaGenerica.actualizarEliminar(sql, parametros);
         return filaAfectada;
 
+    }
+
+    public ResponseEntity<ApiResponse<Integer>> eliminarItemPyme(Integer id_pyme, DeleteItemRequest request) {
+        try{
+            String sql = """
+                    DELETE FROM  tbl_item WHERE id_item = :id_item AND id_pyme = :id_pyme;
+                """;
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("id_item", request.getId_item());
+            parametros.put("id_pyme", id_pyme);
+
+            Integer filaAfectada = consultaGenerica.actualizarEliminar(sql, parametros);
+            return ResponseEntity.ok(
+                    new ApiResponse<>(true, "Item eliminado con exito!", filaAfectada)
+            );
+        } catch (Exception e) {
+            return ResponseEntity.ok(
+                    new ApiResponse<>(false, "Error al eliminar el item", 0)
+            );
+        }
+
+//        return itemRepository.eliminarItemPyme(id_pyme, request);
     }
 
 

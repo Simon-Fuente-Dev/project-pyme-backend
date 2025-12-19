@@ -3,15 +3,12 @@ package com.proyecto.proyecto_pyme_backend.repository;
 import com.proyecto.proyecto_pyme_backend.Utils.Bcrypt;
 import com.proyecto.proyecto_pyme_backend.Utils.ConsultaGenerica;
 import com.proyecto.proyecto_pyme_backend.dto.Api.ApiResponse;
-import com.proyecto.proyecto_pyme_backend.request.RegisterUsuRequest;
+import com.proyecto.proyecto_pyme_backend.request.RegisterUsuPymeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Repository
@@ -21,7 +18,7 @@ public class RegisterUsuRepository {
     @Autowired
     private ConsultaGenerica consultaGenerica;
 
-    public ResponseEntity<ApiResponse<Integer>> registrarUsuarioPyme(RegisterUsuRequest request) {
+    public ResponseEntity<ApiResponse<Integer>> registrarUsuarioPyme(RegisterUsuPymeRequest request) {
         try {
             //Primero validamos si el usuario ingresado existe!
             Boolean usuExiste = validaUsuarioPyme(request.getNomUsuario());
@@ -82,7 +79,7 @@ public class RegisterUsuRepository {
     }
 
     //Retorna el id de la pyme
-    public Integer insertaUsuarioPyme(RegisterUsuRequest request) {
+    public Integer insertaUsuarioPyme(RegisterUsuPymeRequest request) {
         String sqlUsu = """
                 INSERT INTO tbl_usuario(nom_usuario, email, password, id_tipo_usuario, activo,
                                         pnombre, snombre, appaterno, apmaterno)
@@ -128,7 +125,7 @@ public class RegisterUsuRepository {
         return idPyme;
     }
 
-    public void insertaSubServicios(Integer idPyme, RegisterUsuRequest request) {
+    public void insertaSubServicios(Integer idPyme, RegisterUsuPymeRequest request) {
         String sqlServ = """
                 INSERT INTO tbl_tipo_serv_pyme(id_pyme, id_tipo_servicio)
                                         VALUES(:id_pyme, :id_tipo_servicio)

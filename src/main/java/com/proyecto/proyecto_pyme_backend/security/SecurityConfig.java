@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .csrf().disable() // deshabilita CSRF (importante si usas JWT)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/web-api/**").permitAll() // permitir tus endpoints públicos
+                        .requestMatchers("/movil-api/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -40,7 +41,11 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // tu frontend
+        config.setAllowedOriginPatterns(Arrays.asList(
+                "http://localhost:5173",    // Tu web
+                "http://172.26.89.*",       // Rango de IPs de tu oficina (ajusta según tu subred)
+                "exp://*"                   // Para conexiones directas de Expo si fuera necesario
+        ));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(Arrays.asList("*"));
         config.setAllowCredentials(true);
