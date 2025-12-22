@@ -1,6 +1,7 @@
 package com.proyecto.proyecto_pyme_backend.security;
 
 import com.proyecto.proyecto_pyme_backend.dto.PymeUsuDto;
+import com.proyecto.proyecto_pyme_backend.dto.UsuarioDto;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -29,6 +30,20 @@ public class JwtUtil {
         claims.put("id_usuario", usuario.getId_usuario());
         claims.put("id_pyme", usuario.getId_pyme());
         claims.put("nombre_pyme", usuario.getNombre_pyme());
+        claims.put("nom_usuario", usuario.getNom_usuario());
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(usuario.getNom_usuario()) // El "dueño" del token
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expirationMs)) // ⏳ expiración
+                .signWith(secretKey) // 🔐 firma
+                .compact(); // 🧾 genera el string final del token
+    }
+
+    public String generateTokenMovil(UsuarioDto usuario) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id_usuario", usuario.getId_usuario());
         claims.put("nom_usuario", usuario.getNom_usuario());
 
         return Jwts.builder()

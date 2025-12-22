@@ -1,7 +1,10 @@
 package com.proyecto.proyecto_pyme_backend.controller;
 
 import com.proyecto.proyecto_pyme_backend.dto.Api.ApiResponse;
+import com.proyecto.proyecto_pyme_backend.dto.AuthResponseDto;
+import com.proyecto.proyecto_pyme_backend.dto.AuthResponseDtoMovil;
 import com.proyecto.proyecto_pyme_backend.request.RegisterUsuRequest;
+import com.proyecto.proyecto_pyme_backend.request.UsuAuthRequest;
 import com.proyecto.proyecto_pyme_backend.security.AuthenticatedUserProvider;
 import com.proyecto.proyecto_pyme_backend.service.MovilService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,12 @@ public class MovilController {
     @PostMapping("/registrar-usuario")
     public ResponseEntity<ApiResponse<Integer>> registrarUsuario(@RequestBody RegisterUsuRequest request) {
         return movilService.registrarUsuario(request);
+    }
+
+    @PostMapping("/iniciar-sesion")
+    public ResponseEntity<ApiResponse<AuthResponseDtoMovil>> iniciarSesion(@RequestBody UsuAuthRequest request) {
+        System.out.println(request);
+        return movilService.validarUsuario(request);
     }
 
 }

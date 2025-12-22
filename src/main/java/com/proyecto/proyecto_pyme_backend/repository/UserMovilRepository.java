@@ -3,6 +3,8 @@ package com.proyecto.proyecto_pyme_backend.repository;
 import com.proyecto.proyecto_pyme_backend.Utils.Bcrypt;
 import com.proyecto.proyecto_pyme_backend.Utils.ConsultaGenerica;
 import com.proyecto.proyecto_pyme_backend.dto.Api.ApiResponse;
+import com.proyecto.proyecto_pyme_backend.dto.UsuarioDto;
+import com.proyecto.proyecto_pyme_backend.mapper.UsuMovilRowMapper;
 import com.proyecto.proyecto_pyme_backend.request.RegisterUsuRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +19,11 @@ public class UserMovilRepository {
     private ConsultaGenerica consultaGenerica;
 
     public ResponseEntity<ApiResponse<Integer>> registrarUsuario(RegisterUsuRequest request) {
-        System.out.println(request.getNomUsuario());
+
         Boolean usuExiste = validaUsuarioMovil(request.getNomUsuario());
+        System.out.println("usuExiste: " + usuExiste);
         if (usuExiste) {
+            System.out.println("usuExiste: " + usuExiste);
             return ResponseEntity.ok(
                     new ApiResponse<>(false, "El usuario " + request.getNomUsuario() + " ya existe, porfavor intente otro", 0)
             );
@@ -34,7 +38,7 @@ public class UserMovilRepository {
 
         Integer idUsuario = insertarUsuarioMovil(request);
         return ResponseEntity.ok(
-                new ApiResponse<>(true, "Registrando usuario... " + idUsuario, 1)
+                new ApiResponse<>(true, "Usuario Registrado con exito!", 1)
         );
     }
 
@@ -85,4 +89,17 @@ public class UserMovilRepository {
         return idUsuario;
     }
 
+    public UsuarioDto validarUsuarioMovil(String username) {
+        String sql = """
+                    SELECT id_usuario,
+                           nom_usuario,
+                           password
+                    FROM tbl_usuario
+                    WHERE nom_usuario = :username 
+                        AND id_tipo_usuario = 4
+                """;
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("username", username);
+        return consultaGenerica.objetoUnico(sql, parametros, new UsuMovilRowMapper());
+    }
 }
