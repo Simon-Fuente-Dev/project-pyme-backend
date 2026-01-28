@@ -9,10 +9,8 @@ import com.proyecto.proyecto_pyme_backend.security.AuthenticatedUserProvider;
 import com.proyecto.proyecto_pyme_backend.service.MovilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/movil-api")
@@ -34,4 +32,12 @@ public class MovilController {
         return movilService.validarUsuario(request);
     }
 
+    //Aqui iran las rutas que requieran que el usuario este logeado y que mande el token
+    @GetMapping("/mis-datos")
+    @PreAuthorize("isAuthenticated()")
+    public Integer obtenerDatosMovil() {
+        // El userProvider extrae el ID del token que Axios envía automáticamente
+        Integer idUsuario = userProvider.getIdUsuario();
+        return idUsuario;
+    }
 }
